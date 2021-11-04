@@ -10,18 +10,19 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import java.util.ArrayList;
 
 public class OCItems {
-    public static ArrayList<BaseItem> items = new ArrayList<>();
+    public static ArrayList<Item> items = new ArrayList<>();
 
     public static PokeballItem POKEBALL = new PokeballItem();
 
-    public static void registerEvents() {
+    public void init() {
+        FMLJavaModLoadingContext.get().getModEventBus().register(this);
         MinecraftForge.EVENT_BUS.register(PokeballEvents.class);
     }
 
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
-        for (BaseItem i : OCItems.items) {
-            i.register(event);
+        for (Item i : OCItems.items) {
+            event.getRegistry().register(i);
         }
     }
 }
