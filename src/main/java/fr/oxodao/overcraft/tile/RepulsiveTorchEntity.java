@@ -31,7 +31,10 @@ public class RepulsiveTorchEntity extends BlockEntity {
             return;
 
         int radius = 4;
-        List<Entity> entities = w.getEntities(null, AABB.of((new BoundingBox(bp)).inflate(radius)));
+        List<Entity> entities = w.getEntities(
+                null,
+                AABB.of((new BoundingBox(bp)).inflatedBy(radius))
+        );
         for (Entity entity : entities) {
             if (entity instanceof Player || entity.hasCustomName())
                 continue;
