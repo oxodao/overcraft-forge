@@ -3,7 +3,6 @@ package fr.oxodao.overcraft.tile;
 import fr.oxodao.overcraft.utils.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -48,7 +47,6 @@ public class RepulsiveTorchEntity extends BlockEntity {
                 double knockbackMultiplier = 1.0D + 1.0D / distance;
                 double reductionCoefficient = 0.04D;
 
-                // @TODO check blaze mes couilles la
                 if (entity instanceof Projectile) {
                     Projectile pe = (Projectile)entity;
                     if (!(pe.getOwner() instanceof Player)) {

@@ -18,6 +18,7 @@ public class ClientOvercraft {
 
     @SubscribeEvent
     public static void onClientSetupEvent(FMLClientSetupEvent e) {
+        // @TODO: fix deprecated
         ItemBlockRenderTypes.setRenderLayer(Registration.REPULSIVE_TORCH.get(), RenderType.cutout());
     }
 

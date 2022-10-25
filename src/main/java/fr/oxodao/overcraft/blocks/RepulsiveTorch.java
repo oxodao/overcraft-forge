@@ -1,12 +1,10 @@
 package fr.oxodao.overcraft.blocks;
 
-import fr.oxodao.overcraft.Overcraft;
 import fr.oxodao.overcraft.tile.RepulsiveTorchEntity;
 import fr.oxodao.overcraft.utils.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.TorchBlock;

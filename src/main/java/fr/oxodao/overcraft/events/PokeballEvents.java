@@ -1,6 +1,6 @@
 package fr.oxodao.overcraft.events;
 
-import fr.oxodao.overcraft.items.OCItems;
+import fr.oxodao.overcraft.utils.Registration;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -17,10 +17,10 @@ public class PokeballEvents {
     @SubscribeEvent
     public static void entityInteract(PlayerInteractEvent.EntityInteract e) {
         var is = e.getItemStack();
-        var w = e.getWorld();
+        var w = e.getLevel();
         var target = e.getTarget();
 
-        if (w.isClientSide || is.getItem() != OCItems.POKEBALL) {
+        if (w.isClientSide || is.getItem() != Registration.POKEBALL_ITEM.get()) {
             return;
         }
 
@@ -49,7 +49,7 @@ public class PokeballEvents {
             nbt.put("captured_entity", tag);
 
             is.setTag(nbt);
-            e.getPlayer().setItemInHand(e.getHand(), is);
+            e.getEntity().setItemInHand(e.getHand(), is);
             target.remove(Entity.RemovalReason.DISCARDED);
 
             if (target instanceof Animal) {

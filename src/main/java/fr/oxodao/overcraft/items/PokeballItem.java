@@ -1,36 +1,36 @@
 package fr.oxodao.overcraft.items;
 
+import fr.oxodao.overcraft.Overcraft;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.animal.Sheep;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import org.apache.logging.log4j.core.jmx.Server;
+import net.minecraft.world.item.Item;
 
 import java.util.List;
 import java.util.Optional;
 
-public class PokeballItem extends BaseItem {
+public class PokeballItem extends Item {
 
     public PokeballItem() {
-        super("pokeball", (new Properties()).fireResistant().stacksTo(1));
+        super(
+                (new Properties())
+                        .fireResistant()
+                        .stacksTo(1)
+                        .tab(Overcraft.tab)
+        );
     }
 
     @Override
@@ -62,7 +62,7 @@ public class PokeballItem extends BaseItem {
                 le.readAdditionalSaveData((CompoundTag) nbt.get("captured_entity"));
 
                 if (nbt.contains("nametag"))
-                    le.setCustomName(new TextComponent(nbt.getString("nametag")));
+                    le.setCustomName(Component.literal(nbt.getString("nametag")));
 
                 w.addFreshEntity(le);
 
@@ -82,20 +82,21 @@ public class PokeballItem extends BaseItem {
             if (et.isPresent()) {
                 String mod = nbt.getString("mod").equals("minecraft") ? "" : (" (" + I18n.get(nbt.getString("mod"), new Object[0]) + ")");
 
-                TextComponent lt = new TextComponent(I18n.get("item.overcraft.pokeball.caught", new Object[0]) + ": " + I18n.get((et.get()).getDescriptionId()) + mod);
+                var lt = Component.literal(I18n.get("item.overcraft.pokeball.caught", new Object[0]) + ": " + I18n.get((et.get()).getDescriptionId()) + mod);
                 lt.setStyle(lightGray);
 
                 tooltip.add(lt);
 
                 if (nbt.contains("nametag")) {
-                    TextComponent ltNametag = new TextComponent(I18n.get("item.overcraft.pokeball.nametag", new Object[0]) + ": " + nbt.getString("nametag"));
+                    var ltNametag = Component.literal(I18n.get("item.overcraft.pokeball.nametag", new Object[0]) + ": " + nbt.getString("nametag"));
                     ltNametag.setStyle(lightGray);
 
                     tooltip.add(ltNametag);
                 }
             }
         } else {
-            TextComponent ltEmpty = new TextComponent("Empty");
+            // @TODO translate
+            var ltEmpty = Component.literal("Empty");
             ltEmpty.setStyle(lightGray);
             tooltip.add(ltEmpty);
         }
@@ -107,8 +108,9 @@ public class PokeballItem extends BaseItem {
 
     @Override
     public Rarity getRarity(ItemStack is) {
-        if (is.hasTag() && is.getTag().contains("entity"))
+        if (is.hasTag() && is.getTag().contains("entity")) {
             return Rarity.EPIC;
+        }
 
         return Rarity.COMMON;
     }

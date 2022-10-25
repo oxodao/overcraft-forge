@@ -12,7 +12,7 @@ public class CreativeTab extends CreativeModeTab {
 
     @Override
     public ItemStack makeIcon() {
-        return new ItemStack(Items.DIAMOND, 1);
+        return new ItemStack(Registration.POKEBALL_ITEM.get(), 1);
     }
 
 }
